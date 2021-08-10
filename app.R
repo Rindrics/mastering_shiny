@@ -6,13 +6,16 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  output$summary <- renderPrint({
-    dataset <- get(input$dataset, "package:datasets")
-    summary(dataset)
+  dataset <- reactive({
+    get(input$dataset, "package:datasets")
   })
+
+  output$summary <- renderPrint({
+    summary(dataset())
+  })
+
   output$table <- renderTable({
-    dataset <- get(input$dataset, "package:datasets")
-    dataset
+    dataset()
   })
 }
 shinyApp(ui, server)
