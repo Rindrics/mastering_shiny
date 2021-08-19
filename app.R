@@ -8,7 +8,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   output$product <- renderText({
-    x * 5
+    input$x * 5
   })
 }
 
